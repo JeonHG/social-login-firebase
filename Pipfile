@@ -10,6 +10,8 @@ django = "*"
 django-rest-framework = "*"
 environs = "*"
 jwt = "*"
+gunicorn = "*"
+django-heroku = "*"
 
 [requires]
 python_version = "3.7"
