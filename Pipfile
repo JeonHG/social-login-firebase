@@ -12,6 +12,7 @@ environs = "*"
 jwt = "*"
 gunicorn = "*"
 django-heroku = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.7"
