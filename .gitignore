@@ -137,3 +137,8 @@ Envs/
 !.elasticbeanstalk/*.global.yml
 
 .vscode
+credentials.*
+
+# test scripts
+idtoken_test.py
+json_test.py

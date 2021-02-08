@@ -11,6 +11,7 @@ from rest_framework import status
 from .serializers import UserSerializer
 from users.models import User
 from config.token import user_activation_token
+
 # from config.CustomEmail import CustomEmail
 
 
@@ -89,3 +90,19 @@ def activate_user(request, uidb64, token):
         return Response(
             data={"token": "Already expired."}, status=status.HTTP_400_BAD_REQUEST
         )
+
+
+# class TestView(APIView):
+
+#     permission_classes = [IsAuthenticated]
+
+#     def get(self, request):
+#         return Response(UserSerializer(request.user).data)
+
+#     def put(self, request):
+#         serializer = UserSerializer(request.user, data=request.data, partial=True)
+#         if serializer.is_valid():
+#             user = serializer.save()
+#             return Response(UserSerializer(user).data)
+#         else:
+#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
