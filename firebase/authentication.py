@@ -20,8 +20,8 @@ class FirebaseAuthentication(authentication.BaseAuthentication):
         last_name = request.data.get("familyName", None)
         first_name = request.data.get("givenName", None)
         avatar = request.data.get("photo", None)
-        if not auth_header:
-            raise NoAuthToken("No auth token provided")
+        # if not auth_header:
+        #     raise NoAuthToken("No auth token provided")
 
         id_token = auth_header.split(" ").pop()
         # print(id_token)
