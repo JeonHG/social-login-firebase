@@ -17,6 +17,9 @@ default_app = initialize_app(cred)
 class FirebaseAuthentication(authentication.BaseAuthentication):
     def authenticate(self, request):
         auth_header = request.META.get("HTTP_AUTHORIZATION")
+        last_name = request.data.get("familyName", None)
+        first_name = request.data.get("givenName", None)
+        avatar = request.data.get("photo", None)
         if not auth_header:
             raise NoAuthToken("No auth token provided")
 
@@ -40,7 +43,13 @@ class FirebaseAuthentication(authentication.BaseAuthentication):
         except Exception:
             raise FirebaseError()
 
-        user, created = User.objects.get_or_create(username=uid, email=email)
+        user, created = User.objects.get_or_create(
+            username=uid,
+            email=email,
+            first_name=first_name,
+            last_name=last_name,
+            avatar=avatar,
+        )
         user.last_activity = timezone.localtime()
 
         return (user, None)
