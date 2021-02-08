@@ -17,9 +17,9 @@ default_app = initialize_app(cred)
 class FirebaseAuthentication(authentication.BaseAuthentication):
     def authenticate(self, request):
         auth_header = request.META.get("HTTP_AUTHORIZATION")
-        last_name = request.data.get("familyName", None)
-        first_name = request.data.get("givenName", None)
-        avatar = request.data.get("photo", None)
+        # last_name = request.data.get("familyName", None)
+        # first_name = request.data.get("givenName", None)
+        # avatar = request.data.get("photo", None)
         # if not auth_header:
         #     raise NoAuthToken("No auth token provided")
         if auth_header is None:
@@ -30,8 +30,8 @@ class FirebaseAuthentication(authentication.BaseAuthentication):
         try:
             decoded_token = auth.verify_id_token(id_token)
         except Exception:
-            raise InvalidAuthToken("Invalid auth token")
-            pass
+            # raise InvalidAuthToken("Invalid auth token")
+            return None
 
         if not id_token or not decoded_token:
             return None
@@ -42,14 +42,15 @@ class FirebaseAuthentication(authentication.BaseAuthentication):
             # print(decoded_token)
             # print(uid)
         except Exception:
-            raise FirebaseError()
+            # raise FirebaseError()
+            return None
 
         user, created = User.objects.get_or_create(
             username=uid,
             email=email,
-            first_name=first_name,
-            last_name=last_name,
-            avatar=avatar,
+            # first_name=first_name,
+            # last_name=last_name,
+            # avatar=avatar,
         )
         user.last_activity = timezone.localtime()
 
